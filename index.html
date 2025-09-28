@@ -60,15 +60,18 @@
     </div>
 
     <!-- SheetJS library for Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
     <script src="script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("service-worker.js").then(
-            (reg) => console.log("✅ Service Worker registered:", reg.scope),
-            (err) => console.log("❌ Service Worker failed:", err)
-          );
+        window.addEventListener("load", async () => {
+          try {
+            const reg = await navigator.serviceWorker.register("sw.js");
+            console.log("✅ Service Worker registered:", reg.scope);
+          } catch (err) {
+            console.log("❌ Service Worker failed:", err);
+          }
         });
       }
     </script>
