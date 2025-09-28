@@ -81,6 +81,9 @@ function loadAttendanceTable() {
         student.paidDate || ""
       }" onchange="updatePaidDate('${student.id}',this)" ${lockFields}></td>
       <td>${expireDate}</td>
+        <td><button onclick="deleteStudent('${
+          student.id
+        }')">Delete</button></td>
     `;
     tbody.appendChild(row);
   });
@@ -239,6 +242,27 @@ function addNewStudent() {
   saveStudents();
   loadAttendanceTable();
   alert("Student added successfully!");
+}
+//-------------------------
+//Delete
+//-------------------------
+function deleteStudent(id) {
+  if (!confirm("Are you sure you want to delete this student?")) return;
+
+  // Remove from students array
+  students = students.filter((s) => s.id !== id);
+
+  // Remove from attendance data
+  Object.keys(attendanceData).forEach((date) => {
+    if (attendanceData[date][id]) delete attendanceData[date][id];
+  });
+
+  saveStudents();
+  localStorage.setItem("attendance", JSON.stringify(attendanceData));
+
+  // Reload table
+  loadAttendanceTable();
+  alert("Student deleted successfully!");
 }
 
 // ------------------------
