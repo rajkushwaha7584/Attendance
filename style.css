@@ -97,11 +97,11 @@ button.delete-btn {
   color: white;
   border: none;
   padding: 10px 18px; /* same as other buttons */
-  border-radius: 8px; /* same border-radius */
+  border-radius: 8px;  /* same border-radius */
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  min-width: 120px; /* same as other buttons */
+  min-width: 120px;    /* same as other buttons */
 }
 
 /* Hover effect */
@@ -168,6 +168,7 @@ button {
 button:active {
   transform: scale(0.98);
 }
+
 
 /* =======================
    Table Styles

@@ -3,7 +3,6 @@
 // =======================
 
 // Load student list from localStorage
-
 let students = JSON.parse(localStorage.getItem("students")) || [];
 let attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
 let today = new Date().toISOString().slice(0, 10);
@@ -81,9 +80,9 @@ function loadAttendanceTable() {
         student.paidDate || ""
       }" onchange="updatePaidDate('${student.id}',this)" ${lockFields}></td>
       <td>${expireDate}</td>
-        <td><button onclick="deleteStudent('${
-          student.id
-        }')">Delete</button></td>
+      <td><button class="delete-btn" onclick="deleteStudent('${
+        student.id
+      }')">Delete</button></td>
     `;
     tbody.appendChild(row);
   });
@@ -108,7 +107,6 @@ function toggleAttendance(id, checkbox) {
 function updateAmount(id, input) {
   let student = students.find((s) => s.id === id);
   if (student && !student.amount) {
-    // lock after first entry
     student.amount = input.value;
     saveStudents();
     loadAttendanceTable();
@@ -118,7 +116,6 @@ function updateAmount(id, input) {
 function updatePaidDate(id, input) {
   let student = students.find((s) => s.id === id);
   if (student && !student.paidDate) {
-    // lock after first entry
     student.paidDate = input.value;
     saveStudents();
     loadAttendanceTable();
@@ -143,7 +140,7 @@ function searchStudent() {
 }
 
 // ------------------------
-// Excel Export
+// Export to Excel
 // ------------------------
 function exportExcel() {
   let wb = XLSX.utils.book_new();
@@ -243,26 +240,27 @@ function addNewStudent() {
   loadAttendanceTable();
   alert("Student added successfully!");
 }
-//-------------------------
-//Delete
-//-------------------------
-function deleteStudent(id) {
-  if (!confirm("Are you sure you want to delete this student?")) return;
 
-  // Remove from students array
-  students = students.filter((s) => s.id !== id);
+// ------------------------
+// Delete Student
+// ------------------------
+function deleteStudent(idPrompt) {
+  let id = idPrompt || prompt("Enter Student ID to delete:");
+  if (!id) return alert("ID is required!");
 
-  // Remove from attendance data
-  Object.keys(attendanceData).forEach((date) => {
+  let index = students.findIndex((s) => s.id === id);
+  if (index === -1) return alert("Student not found!");
+
+  students.splice(index, 1);
+
+  for (let date in attendanceData) {
     if (attendanceData[date][id]) delete attendanceData[date][id];
-  });
+  }
 
   saveStudents();
   localStorage.setItem("attendance", JSON.stringify(attendanceData));
-
-  // Reload table
   loadAttendanceTable();
-  alert("Student deleted successfully!");
+  alert(`Student with ID ${id} deleted successfully!`);
 }
 
 // ------------------------
