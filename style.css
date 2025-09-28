@@ -91,17 +91,36 @@ input[type="number"]:focus {
 /* =======================
    Buttons
 ======================= */
+/* Delete button styled like other buttons */
 button.delete-btn {
-  background-color: #dc3545;
+  background: #dc3545; /* Red */
   color: white;
   border: none;
-  padding: 4px 8px;
+  padding: 10px 18px; /* same as other buttons */
+  border-radius: 8px; /* same border-radius */
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  min-width: 120px; /* same as other buttons */
 }
 
+/* Hover effect */
 button.delete-btn:hover {
   background-color: #c82333;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(200, 35, 51, 0.3);
+}
+
+/* Active effect */
+button.delete-btn:active {
+  transform: scale(0.98);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  button.delete-btn {
+    width: 100%; /* Full width on mobile */
+  }
 }
 
 button {
