@@ -242,26 +242,31 @@ function addNewStudent() {
 }
 
 // ------------------------
-// Delete Student
+// Delete Student with ID prompt
 // ------------------------
-function deleteStudent(idPrompt) {
-  let id = idPrompt || prompt("Enter Student ID to delete:");
-  if (!id) return alert("ID is required!");
+function deleteStudent() {
+  let id = prompt("Enter Student ID to delete:");
+  if (!id) return alert("ID is required!"); // Cancel pressed
 
-  let index = students.findIndex((s) => s.id === id);
+  // Find student index
+  let index = students.findIndex((s) => s.id === id.trim());
   if (index === -1) return alert("Student not found!");
 
+  // Remove student from array
   students.splice(index, 1);
 
+  // Remove attendance records
   for (let date in attendanceData) {
     if (attendanceData[date][id]) delete attendanceData[date][id];
   }
 
+  // Save updates
   saveStudents();
   localStorage.setItem("attendance", JSON.stringify(attendanceData));
   loadAttendanceTable();
   alert(`Student with ID ${id} deleted successfully!`);
 }
+
 
 // ------------------------
 // Initial load
