@@ -90,7 +90,7 @@ input[type="number"]:focus {
 ======================= */
 /* Search Button - Purple */
 .btn-search {
-  background: #6f42c1; /* Purple */
+  background: #cc4141; /* Purple */
   color: rgb(235, 159, 159);
 }
 
