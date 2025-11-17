@@ -39,29 +39,26 @@ function loadAttendanceTable() {
     let status = attendanceData[currentDate][student.id];
     let disabledAttr = currentDate !== today ? "disabled" : "";
 
-    // Totals
     let totalPresent = 0,
       totalAbsent = 0;
     Object.values(attendanceData).forEach((day) => {
       if (day[student.id] === "present") totalPresent++;
       else totalAbsent++;
     });
+
     let totalDays = totalPresent + totalAbsent;
 
-    // Expire date
     let expireDate = student.paidDate
-      ? new Date(
-          new Date(student.paidDate).getTime() + 30 * 24 * 60 * 60 * 1000
-        )
+      ? new Date(new Date(student.paidDate).getTime() + 30 * 86400000)
           .toISOString()
           .slice(0, 10)
       : "";
 
-    // Lock amount & paidDate if already entered
     let lockFields = student.amount && student.paidDate ? "readonly" : "";
 
     let row = document.createElement("tr");
     row.className = status;
+
     row.innerHTML = `
       <td>${student.id}</td>
       <td>${student.name}</td>
@@ -80,10 +77,8 @@ function loadAttendanceTable() {
         student.paidDate || ""
       }" onchange="updatePaidDate('${student.id}',this)" ${lockFields}></td>
       <td>${expireDate}</td>
-      <td><button class="delete-btn" onclick="deleteStudent('${
-        student.id
-      }')">Delete</button></td>
     `;
+
     tbody.appendChild(row);
   });
 
@@ -266,7 +261,6 @@ function deleteStudent() {
   loadAttendanceTable();
   alert(`Student with ID ${id} deleted successfully!`);
 }
-
 
 // ------------------------
 // Initial load

@@ -44,21 +44,24 @@
           </tr>
         </thead>
         <tbody>
-          <!-- JS will populate -->
+          <!-- JS loads rows -->
         </tbody>
       </table>
 
       <!-- Excel & Student Buttons -->
       <input type="file" id="fileInput" accept=".xlsx,.xls" />
+
       <button class="btn-load" onclick="loadFromExcel()">
         Load Students from Excel
       </button>
+
       <button class="btn-add" onclick="addNewStudent()">Add New Student</button>
-      <td>
-        <button class="delete-btn" onclick="deleteStudent()">
-          Delete
-        </button>
-      </td>
+
+      <!-- ✔ Delete From Prompt (not in table rows) -->
+      <button class="delete-btn" onclick="deleteStudent()">
+        Delete Student
+      </button>
+
       <button class="btn-export" onclick="exportExcel()">
         Export Attendance to Excel
       </button>
@@ -68,6 +71,7 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <script src="script.js"></script>
+
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", async () => {
