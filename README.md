@@ -99,15 +99,6 @@ app/
 
 ---
 
-## 🔐 Permissions Required
-
-```
-android.permission.WRITE_EXTERNAL_STORAGE
-android.permission.READ_EXTERNAL_STORAGE
-```
-
----
-
 ## 🤝 Contribution
 Pull requests are welcome!  
 For major changes, please open an issue first.
@@ -116,3 +107,4 @@ For major changes, please open an issue first.
 
 ## 📞 Support
 For any help, contact the developer: **Raj**
+
